@@ -36,14 +36,14 @@ class AgriLife_College {
 	public function init() {
 
 		// Create the Faculty/Alumni Notes Custom Post Type
-		$ac_cpt_notes = new AC_CPT_Notes;
+		$ac_posttype_notes = new AC_PostType_Notes;
 
 		// Create the Locations Custom Post Type
-		$ac_cpt_locations = new AC_CPT_Locations;
+		$ac_posttype_locations = new AC_PostType_Locations;
 
 	}
 
-	public function autoload( $classname ) {
+	public static function autoload( $classname ) {
 
 		$filename = dirname( __FILE__ ) .
       DIRECTORY_SEPARATOR .
@@ -61,3 +61,5 @@ class AgriLife_College {
 	}
 
 }
+
+new AgriLife_College;
