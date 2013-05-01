@@ -55,6 +55,9 @@ class AgriLife_College {
 		// Create the metaboxes
 		$ac_metaboxes = new AC_Metaboxes;
 
+		// Add shortcodes
+		$ac_shortcode_collegeadvisors = new AC_Shortcode_CollegeAdvisors;
+
 		add_filter( 'title_save_pre', array( $this, 'save_title' ) );
 
 	}
