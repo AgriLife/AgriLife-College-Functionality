@@ -1,0 +1,19 @@
+<?php
+
+class AC_Shortcode_CollegeAdvisors {
+
+	public function __construct() {
+
+		add_shortcode( 'advisor_listing', array( $this, 'create_shortcode' ) );
+
+	}
+
+	/**
+	 * The shortcode logic
+	 */
+	public function create_shortcode() {
+
+
+	}
+
+}
