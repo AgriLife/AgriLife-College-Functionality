@@ -55,7 +55,24 @@ class AgriLife_College {
 		// Add custom taxonomies to Gravity Forms
 		// $ac_forms = new AC_Forms;
 
+		add_filter( 'title_save_pre', array( $this, 'save_title' ) );
+
 	}
+
+	/**
+   * Saves the staff title as lastname, firstname
+   * @param  string $staff_title The empty staff title
+   * @return string              The correct staff title
+   */
+  public function save_title( $title ) {
+
+    if ( $_POST['post_type'] == 'location' ){
+      $title = $_POST[AC_META_PREFIX . 'program-title'];
+    }
+
+    return $title;
+    
+  }
 
 	public static function autoload( $classname ) {
 
