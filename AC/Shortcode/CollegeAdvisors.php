@@ -27,7 +27,7 @@ class AC_Shortcode_CollegeAdvisors {
 	 */
 	private function get_major_list() {
 
-		$majors = get_terms( 'types' );
+		$majors = get_terms( 'program-major' );
 
 		$terms = array();
 
@@ -52,7 +52,7 @@ class AC_Shortcode_CollegeAdvisors {
 				'posts_per_page' => -1,
 				'tax_query' => array(
 					array(
-						'taxonomy' => 'types',
+						'taxonomy' => 'program-major',
 						'field' => 'slug',
 						'terms' => $slug,
 					)
