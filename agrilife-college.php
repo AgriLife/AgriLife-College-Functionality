@@ -41,6 +41,20 @@ class AgriLife_College {
 		// Create the Locations Custom Post Type
 		$ac_posttype_locations = new AC_PostType_Locations;
 
+		// Create all of the custom taxonomies
+		$ac_taxonomy_programcategory = new AC_Taxonomy_ProgramCategory;
+		$ac_taxonomy_programdepartment = new AC_Taxonomy_ProgramDepartment;
+		$ac_taxonomy_programmajor = new AC_Taxonomy_ProgramMajor;
+		$ac_taxonomy_programregion = new AC_Taxonomy_ProgramRegion;
+		$ac_taxonomy_programtype = new AC_Taxonomy_ProgramType;
+		$ac_taxonomy_timeoffered = new AC_Taxonomy_TimeOffered;
+
+		// Create the metaboxes
+		$ac_metaboxes = new AC_Metaboxes;
+
+		// Add custom taxonomies to Gravity Forms
+		// $ac_forms = new AC_Forms;
+
 	}
 
 	public static function autoload( $classname ) {
