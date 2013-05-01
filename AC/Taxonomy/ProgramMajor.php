@@ -31,8 +31,12 @@ class AC_Taxonomy_ProgramMajor {
 			'rewrite' => array( 'slug' ),
 		);
 
+		// Allow other plugins to include this taxonomy in their respective CPTs
+		$cpt = array( 'location' );
+		$cpt = apply_filters( 'add_major_taxonomy', $cpt );
+
 		// Register the ProgramMajor taxonomy
-		register_taxonomy( 'program-major', array( 'location', 'staff' ), $args );
+		register_taxonomy( 'program-major', $cpt, $args );
 
 	}
 
