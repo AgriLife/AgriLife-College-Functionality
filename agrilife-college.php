@@ -41,6 +41,9 @@ class AgriLife_College {
 		// Create the Locations Custom Post Type
 		$ac_posttype_locations = new AC_PostType_Locations;
 
+		// Add the 'major' taxonomy to the staff CPT
+		add_filter( 'add_major_taxonomy', array( $this, 'add_major_to_staff' ) );
+
 		// Create all of the custom taxonomies
 		$ac_taxonomy_programcategory = new AC_Taxonomy_ProgramCategory;
 		$ac_taxonomy_programdepartment = new AC_Taxonomy_ProgramDepartment;
@@ -51,9 +54,6 @@ class AgriLife_College {
 
 		// Create the metaboxes
 		$ac_metaboxes = new AC_Metaboxes;
-
-		// Add custom taxonomies to Gravity Forms
-		// $ac_forms = new AC_Forms;
 
 		add_filter( 'title_save_pre', array( $this, 'save_title' ) );
 
@@ -72,6 +72,18 @@ class AgriLife_College {
 
     return $title;
     
+  }
+
+  /**
+   * Adds the 'major' taxonomy to the Staff CPT
+   * @param array $cpt The current CPT array
+   * @return array $cpt The new CPT array
+   */
+  public function add_major_to_staff( $cpt ) {
+
+  	$cpt[] = 'staff';
+  	return $cpt;
+
   }
 
 	public static function autoload( $classname ) {
