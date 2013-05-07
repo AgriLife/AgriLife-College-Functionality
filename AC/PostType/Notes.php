@@ -14,7 +14,7 @@
 					'singular_name' => __( 'Note', 'agrilife' ),
 					'add_new' => __( 'Add New', 'agrilife' ),
 					'add_new_item' => __( 'Add New Note', 'agrilife' ),
-					'edit_item' => __( 'Edit Staff', 'agrilife' ),
+					'edit_item' => __( 'Edit Note', 'agrilife' ),
 					'new_item' => __( 'New Note', 'agrilife' ),
 					'view_item' => __( 'View Notes', 'agrilife' ),
 					'search_items' => __( 'Search Notes', 'agrilife' ),

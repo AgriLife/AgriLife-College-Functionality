@@ -14,7 +14,7 @@
 					'singular_name' => __( 'Location', 'agrilife' ),
 					'add_new' => __( 'Add New', 'agrilife' ),
 					'add_new_item' => __( 'Add New Location', 'agrilife' ),
-					'edit_item' => __( 'Edit Staff', 'agrilife' ),
+					'edit_item' => __( 'Edit Location', 'agrilife' ),
 					'new_item' => __( 'New Location', 'agrilife' ),
 					'view_item' => __( 'View Locations', 'agrilife' ),
 					'search_items' => __( 'Search Locations', 'agrilife' ),
