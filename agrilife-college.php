@@ -321,7 +321,7 @@ class AgriLife_College {
   public function save_title( $title ) {
 
     if ( $_POST['post_type'] == 'location' ){
-      $title = $_POST[AC_META_PREFIX . 'program-title'];
+    	$title = sanitize_text_field( $_POST[AC_META_PREFIX . 'program-title'] );
     }
 
     return $title;
