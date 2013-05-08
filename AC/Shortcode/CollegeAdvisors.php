@@ -88,7 +88,7 @@ class AC_Shortcode_CollegeAdvisors {
 		<li class="staff-listing-item">
 			<div class="role staff-container">
 				<div class="staff-head">
-					<h2 class="staff-title" title="<?php echo get_the_title( $advisor->ID ); ?>"><a href="<?php echo get_permalink( $advisor->ID ); ?>"><?php echo rwmb_meta( 'als_first-name', '', $advisor->ID ).' '.rwmb_meta( 'als_last-name', '', $advisor->ID ); ?></a></h2>
+					<h2 class="staff-title" title="<?php echo get_the_title( $advisor->ID ); ?>"><?php echo rwmb_meta( 'als_first-name', '', $advisor->ID ).' '.rwmb_meta( 'als_last-name', '', $advisor->ID ); ?></h2>
 					<h3 class="staff-position"><?php echo rwmb_meta( 'als_position', '', $advisor->ID ); ?></h3>
 				</div>                                  
 				<div class="staff-contact-details">
