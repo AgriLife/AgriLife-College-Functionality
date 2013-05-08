@@ -94,6 +94,7 @@ class AC_Shortcode_CollegeAdvisors {
 				<div class="staff-contact-details">
 					<p class="staff-phone tel"><?php echo rwmb_meta( 'als_phone', '', $advisor->ID ); ?></p>
 					<p class="staff-email email"><a href="mailto:<?php echo rwmb_meta( 'als_email', '', $advisor->ID ); ?>"><?php echo rwmb_meta( 'als_email', '', $advisor->ID ); ?></a></p>
+					<p class="staff-location"><?php echo rwmb_meta( 'als_building-room', '', $advisor->ID ); ?></p>
 				</div>
 			</div>
 			</a>
