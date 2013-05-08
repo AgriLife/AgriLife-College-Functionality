@@ -15,6 +15,14 @@ class AC_Shortcode_CollegeAdvisors {
 
 		$majors = $this->get_major_list();
 
+
+		echo '<p class="majors-list">';
+			foreach ($majors as $slug => $name ) {
+				echo '<a href="#' . $name . '">' . $name . '</a> | ';
+			}
+		echo '</p>';
+
+
 		foreach ($majors as $slug => $name ) {
 			$this->create_advisor_list( $slug, $name );
 		}
@@ -63,7 +71,7 @@ class AC_Shortcode_CollegeAdvisors {
 
 			echo '<h3 class="advisor-heading">' . $name . '</h3>';
 
-			echo '<ul class="staff-listing-ul">';
+			echo '<a id="' . $name . '"></a><ul class="staff-listing-ul">';
 			foreach ( $advisors as $advisor ) {
 				$this->display_advisor( $advisor );
 			}
