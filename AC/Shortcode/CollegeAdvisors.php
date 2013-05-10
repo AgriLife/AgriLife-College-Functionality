@@ -16,16 +16,18 @@ class AC_Shortcode_CollegeAdvisors {
 		$majors = $this->get_major_list();
 
 
-		echo '<p class="majors-list">';
+		$return = '<p class="majors-list">';
 			foreach ($majors as $slug => $name ) {
-				echo '<a href="#' . $name . '">' . $name . '</a> | ';
+				$return .= '<a href="#' . $name . '">' . $name . '</a> | ';
 			}
-		echo '</p>';
+		$return .= '</p>';
 
 
 		foreach ($majors as $slug => $name ) {
-			$this->create_advisor_list( $slug, $name );
+			$return .= $this->create_advisor_list( $slug, $name );
 		}
+
+		return $return;
 
 	}
 
@@ -69,13 +71,15 @@ class AC_Shortcode_CollegeAdvisors {
 
 			$advisors = get_posts( $args );
 
-			echo '<h3 class="advisor-heading">' . $name . '</h3>';
+			$return = '<h3 class="advisor-heading">' . $name . '</h3>';
 
-			echo '<a id="' . $name . '"></a><ul class="staff-listing-ul">';
+			$return .= '<a id="' . $name . '"></a><ul class="staff-listing-ul">';
 			foreach ( $advisors as $advisor ) {
-				$this->display_advisor( $advisor );
+				$return .= $this->display_advisor( $advisor );
 			}
-			echo '</ul>';
+			$return .= '</ul>';
+
+			return $return;
 
 	}
 
@@ -83,7 +87,10 @@ class AC_Shortcode_CollegeAdvisors {
 	 * Displays the html for each advisor
 	 * @param  object $advisor The advisor post object
 	 */
-	private function display_advisor( $advisor ) { ?>
+	private function display_advisor( $advisor ) { 
+
+		ob_start();
+		?>
 
 		<li class="staff-listing-item">
 			<div class="role staff-container">
@@ -100,6 +107,9 @@ class AC_Shortcode_CollegeAdvisors {
 			</a>
 		</li>
 		<?php
+		$advisor = ob_get_contents();
+		ob_clean();
+		return $advisor;
 	}
 
 }
