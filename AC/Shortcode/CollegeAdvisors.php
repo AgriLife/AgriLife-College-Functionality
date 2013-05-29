@@ -60,6 +60,9 @@ class AC_Shortcode_CollegeAdvisors {
 				'post_type' => 'staff',
 				'post_status' => 'publish',
 				'posts_per_page' => -1,
+				'meta_key' => STAFF_META_PREFIX . 'last-name',
+				'orderby' => 'meta_value',
+				'order' => 'ASC',
 				'tax_query' => array(
 					array(
 						'taxonomy' => 'program-major',
