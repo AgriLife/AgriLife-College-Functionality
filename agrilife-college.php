@@ -45,8 +45,6 @@ class AgriLife_College {
 
 		add_filter( 'title_save_pre', array( $this, 'save_title' ) );
 
-	  add_action( 'wp_enqueue_scripts', array( $this, 'agrilife_add_beta_alert' ) );
-
 	}
 
 	public function init() {
@@ -341,20 +339,6 @@ class AgriLife_College {
   	return $cpt;
 
   }
-
-  /**
-   * Adds the beta survey alert.
-   * REMOVE AFTER OFFICIAL LAUNCH
-   * @return [type] [description]
-   */
-	public function agrilife_add_beta_alert() {
-		wp_enqueue_script( 'beta-alert',
-			plugin_dir_url( __FILE__ ) . '/js/beta-alert.js',
-			'',
-			false,
-			true
-		);
-	}
 
 	public static function autoload( $classname ) {
 
