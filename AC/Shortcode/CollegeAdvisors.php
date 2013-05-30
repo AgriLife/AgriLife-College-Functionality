@@ -15,9 +15,18 @@ class AC_Shortcode_CollegeAdvisors {
 
 		$majors = $this->get_major_list();
 
+		$return = '<p class="majors-list">';
+			foreach ($majors as $slug => $name ) {
+				$return .= '<a href="#' . $name . '">' . $name . '</a> | ';
+			}
+		$return .= '</p>';
+
+
 		foreach ($majors as $slug => $name ) {
-			$this->create_advisor_list( $slug, $name );
+			$return .= $this->create_advisor_list( $slug, $name );
 		}
+
+		return $return;
 
 	}
 
@@ -50,6 +59,9 @@ class AC_Shortcode_CollegeAdvisors {
 				'post_type' => 'staff',
 				'post_status' => 'publish',
 				'posts_per_page' => -1,
+				'meta_key' => STAFF_META_PREFIX . 'last-name',
+				'orderby' => 'meta_value',
+				'order' => 'ASC',
 				'tax_query' => array(
 					array(
 						'taxonomy' => 'program-major',
@@ -63,7 +75,7 @@ class AC_Shortcode_CollegeAdvisors {
 
 			echo '<h3 class="advisor-heading">' . $name . '</h3>';
 
-			echo '<ul class="staff-listing-ul">';
+			echo '<a id="' . $name . '"></a><ul class="staff-listing-ul">';
 			foreach ( $advisors as $advisor ) {
 				$this->display_advisor( $advisor );
 			}
@@ -79,22 +91,14 @@ class AC_Shortcode_CollegeAdvisors {
 
 		<li class="staff-listing-item">
 			<div class="role staff-container">
-				<div class="staff-image">
-					<a href="<?php the_permalink( $advisor->ID ); ?>" rel="bookmark">
-					<?php if ( has_post_thumbnail( $advisor->ID ) ) {
-						echo get_the_post_thumbnail( $advisor->ID, 'staff_archive' );
-					} else  {
-						echo '<img src="' . STAFF_PLUGIN_DIR_URL . 'img/agrilife-default-staff-image-single.png" alt="AgriLife Logo" title="AgriLife" width="70" height="70" />';
-					}
-					?></a>
-				</div>
 				<div class="staff-head">
-					<h2 class="staff-title" title="<?php echo get_the_title( $advisor->ID ); ?>"><a href="<?php echo get_permalink( $advisor->ID ); ?>"><?php echo rwmb_meta( 'als_first-name', '', $advisor->ID ).' '.rwmb_meta( 'als_last-name', '', $advisor->ID ); ?></a></h2>
+					<h2 class="staff-title" title="<?php echo get_the_title( $advisor->ID ); ?>"><?php echo rwmb_meta( 'als_first-name', '', $advisor->ID ).' '.rwmb_meta( 'als_last-name', '', $advisor->ID ); ?></h2>
 					<h3 class="staff-position"><?php echo rwmb_meta( 'als_position', '', $advisor->ID ); ?></h3>
 				</div>                                  
 				<div class="staff-contact-details">
 					<p class="staff-phone tel"><?php echo rwmb_meta( 'als_phone', '', $advisor->ID ); ?></p>
 					<p class="staff-email email"><a href="mailto:<?php echo rwmb_meta( 'als_email', '', $advisor->ID ); ?>"><?php echo rwmb_meta( 'als_email', '', $advisor->ID ); ?></a></p>
+					<p class="staff-location"><?php echo rwmb_meta( 'als_building-room', '', $advisor->ID ); ?></p>
 				</div>
 			</div>
 			</a>
