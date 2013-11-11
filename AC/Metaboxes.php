@@ -51,6 +51,27 @@ class AC_Metaboxes {
 		);
 
 		$meta_boxes[] = array(
+			'id'       => 'faculty-information',
+			'title'    => 'Faculty Information',
+			'pages'    => array( 'location' ),
+			'context'  => 'normal',
+			'priority' => 'high',
+			'fields'   => array(
+				array(
+					'name' => 'Faculty Name',
+					'id'   => $prefix . 'program-faculty-name',
+					'type' => 'text',
+				),
+				array(
+					'name'             => 'Faculty Photo',
+					'id'               => $prefix . 'program-faculty-photo',
+					'type'             => 'image_advanced',
+					'max_file_uploads' => 1,
+				),
+			),
+		);
+
+		$meta_boxes[] = array(
 			'id' => 'program-information',
 			'title' => 'Program Information',
 			'pages' => array( 'location' ),
