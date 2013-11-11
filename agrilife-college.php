@@ -1,11 +1,11 @@
 <?php
-/*
-Plugin Name: AgriLife College Functionality
-Plugin URI: http://aglifesciences.tamu.edu
-Description: Contains the required functionality for the main college website
-Version: 1.0
-Author: J. Aaron Eaton
-Author URI: http://channeleaton.com
+/**
+* Plugin Name: AgriLife College Functionality
+* Plugin URI: http://aglifesciences.tamu.edu
+* Description: Contains the required functionality for the main college website
+* Version: 1.0
+* Author: J. Aaron Eaton
+* Author URI: http://channeleaton.com
 */
 
 define( 'AC_PLUGIN_DIRNAME', 'agrilife-college' );
