@@ -58,24 +58,7 @@ class AgriLife_College {
 		// Add shortcodes
 		$ac_shortcode_collegeadvisors = new AC_Shortcode_CollegeAdvisors;
 
-		add_filter( 'title_save_pre', array( $this, 'save_title' ) );
-
 	}
-
-	/**
-   * Saves the staff title as lastname, firstname
-   * @param  string $staff_title The empty staff title
-   * @return string              The correct staff title
-   */
-  public function save_title( $title ) {
-
-    if ( $_POST['post_type'] == 'location' ){
-      $title = sanitize_text_field( $_POST[AC_META_PREFIX . 'program-title'] );
-    }
-
-    return $title;
-    
-  }
 
   /**
    * Adds the 'major' taxonomy to the Staff CPT

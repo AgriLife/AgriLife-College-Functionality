@@ -36,6 +36,33 @@ class AC_PostType_Locations {
 		// Register the Staff post type
 		register_post_type( 'location', $args );
 
+		add_action( 'save_post', array( $this, 'save_location_title' ) );
+
+	}
+
+	public function save_location_title( $post_id ) {
+
+    $slug = 'location';
+
+    if ( ! isset( $_POST['post_type'] ) || $slug != $_POST['post_type'] )
+      return;
+
+    remove_action( 'save_post', array( $this, 'save_location_title' ) );
+
+    $program_title = rwmb_meta( AC_META_PREFIX . 'program-title', false, $post_id );
+
+    $program_slug = sanitize_title( $program_title );
+
+    $args = array(
+      'ID' => $post_id,
+      'post_title' => $program_title,
+      'post_name' => $program_slug,
+    );
+
+    wp_update_post( $args );
+
+    add_action( 'save_post', array( $this, 'save_location_title' ) );
+
 	}
 
 	public static function get_instance() {
