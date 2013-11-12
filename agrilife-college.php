@@ -1,11 +1,11 @@
 <?php
-/*
-Plugin Name: AgriLife College Functionality
-Plugin URI: http://aglifesciences.tamu.edu
-Description: Contains the required functionality for the main college website
-Version: 1.0
-Author: J. Aaron Eaton
-Author URI: http://channeleaton.com
+/**
+* Plugin Name: AgriLife College Functionality
+* Plugin URI: http://aglifesciences.tamu.edu
+* Description: Contains the required functionality for the main college website
+* Version: 0.1
+* Author: J. Aaron Eaton
+* Author URI: http://channeleaton.com
 */
 
 define( 'AC_PLUGIN_DIRNAME', 'agrilife-college' );
@@ -36,14 +36,43 @@ class AgriLife_College {
 	public function init() {
 
 		// Create the Faculty/Alumni Notes Custom Post Type
-		$ac_cpt_notes = new AC_CPT_Notes;
+		$ac_posttype_notes = new AC_PostType_Notes;
 
 		// Create the Locations Custom Post Type
-		$ac_cpt_locations = new AC_CPT_Locations;
+		$ac_posttype_locations = new AC_PostType_Locations;
+
+		// Add the 'major' taxonomy to the staff CPT
+		add_filter( 'add_major_taxonomy', array( $this, 'add_major_to_staff' ) );
+
+		// Create all of the custom taxonomies
+		$ac_taxonomy_programcategory = new AC_Taxonomy_ProgramCategory;
+		$ac_taxonomy_programdepartment = new AC_Taxonomy_ProgramDepartment;
+		$ac_taxonomy_programmajor = new AC_Taxonomy_ProgramMajor;
+		$ac_taxonomy_programregion = new AC_Taxonomy_ProgramRegion;
+		$ac_taxonomy_programtype = new AC_Taxonomy_ProgramType;
+		$ac_taxonomy_timeoffered = new AC_Taxonomy_TimeOffered;
+
+		// Create the metaboxes
+		$ac_metaboxes = new AC_Metaboxes;
+
+		// Add shortcodes
+		$ac_shortcode_collegeadvisors = new AC_Shortcode_CollegeAdvisors;
 
 	}
 
-	public function autoload( $classname ) {
+  /**
+   * Adds the 'major' taxonomy to the Staff CPT
+   * @param array $cpt The current CPT array
+   * @return array $cpt The new CPT array
+   */
+  public function add_major_to_staff( $cpt ) {
+
+  	$cpt[] = 'staff';
+  	return $cpt;
+
+  }
+
+	public static function autoload( $classname ) {
 
 		$filename = dirname( __FILE__ ) .
       DIRECTORY_SEPARATOR .
@@ -61,3 +90,5 @@ class AgriLife_College {
 	}
 
 }
+
+new AgriLife_College;
