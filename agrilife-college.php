@@ -63,6 +63,10 @@ class AgriLife_College {
 
 		// Use proper templates
 		$ac_template = new AC_Template;
+
+		// AJAX all-the-things
+		$ac_ajax = new AC_Ajax;
+
 	}
 
   /**
