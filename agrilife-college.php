@@ -35,6 +35,9 @@ class AgriLife_College {
 
 	public function init() {
 
+		// Load required assets
+		$ac_assets = new AC_Assets;
+
 		// Create the Faculty/Alumni Notes Custom Post Type
 		$ac_posttype_notes = new AC_PostType_Notes;
 
@@ -58,6 +61,8 @@ class AgriLife_College {
 		// Add shortcodes
 		$ac_shortcode_collegeadvisors = new AC_Shortcode_CollegeAdvisors;
 
+		// Use proper templates
+		$ac_template = new AC_Template;
 	}
 
   /**
