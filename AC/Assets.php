@@ -34,6 +34,14 @@ class AC_Assets {
 			false
 		);
 
+		wp_enqueue_script(
+			'google-map-infobox',
+			'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js',
+			array( 'google-map' ),
+			false,
+			true
+		);
+
 		wp_enqueue_script( 'underscore' );
 		wp_enqueue_script( 'backbone' );
 
