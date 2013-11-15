@@ -43,6 +43,12 @@ class AC_Query {
 				array_push( $regions, $reg->name );
 			}
 
+			$times = array();
+			$program_times = get_the_terms( $post->ID, 'time-offered' );
+			foreach ( $program_times as $time ) {
+				array_push( $times, $time->name );
+			}
+
 			$city = rwmb_meta( AC_META_PREFIX . 'program-city' );
 			$country = rwmb_meta( AC_META_PREFIX . 'program-country' );
 			$address = "$city, $country";
@@ -64,6 +70,7 @@ class AC_Query {
 				'formattedAddress' => $formatted_address,
 				'coordinates'      => $coordinates,
 				'region'           => $regions[0],
+				'times'						 => $times,
 				'image_url'        => $image_url[0],
 				'permalink'        => $permalink,
 			);
