@@ -58,7 +58,7 @@ class AC_Query {
 			$coordinates = rwmb_meta( AC_META_PREFIX . 'program-coordinates' );
 
 			$image_id = get_post_thumbnail_id();
-			$image_url = wp_get_attachment_image_src( $image_id, 'thumbnail', false );
+			$image_url = wp_get_attachment_image_src( $image_id, 'full', false );
 
 			$permalink = get_permalink( $post->ID );
 
