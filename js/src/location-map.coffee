@@ -3,6 +3,7 @@ Coals = {}
 Coals.Model = {}
 Coals.Collection = {}
 Coals.View = {}
+Coals.Part = {}
 
 # The Map model
 Coals.Model.Map = Backbone.Model.extend
@@ -81,33 +82,37 @@ Coals.View.Location = Backbone.View.extend
 
 		marker.setMap(map)
 
+# Now to make it all happen
 $ ->
 	# Setup the map
-	map = new Coals.Model.Map
+	Coals.Part.map = new Coals.Model.Map
 		zoom: 2
 
 	# Initialize the map model
-	map.initMap
+	Coals.Part.map.initMap
 		coords:
 			latitude: 23.241346
 			longitude: 24.609375
 
 	# Setup the map view
-	mapView = new Coals.View.Map
-		model: map
+	Coals.Part.mapView = new Coals.View.Map
+		model: Coals.Part.map
 
 	# Show the map on the page!
-	mapView.render()
+	Coals.Part.mapView.render()
 
 	# Setup the location collection and get locations from the server
-	locationList = new Coals.Collection.Location
-	locationList.fetch
+	Coals.Part.locationList = new Coals.Collection.Location()
+	Coals.Part.locationList.fetch
 		data:
-			action: 'get_locations'
+			action: 'get_locations' # Custom AJAX action identifier in WP
+
+	# Initialize the global InfoBox
+	Coals.Part.InfoBox = new InfoBox()
 
 	# Setup the location collection-view.
 	# This renders each location as a marker on the map
 	# Any non-core attribute will be accessible through this.options.<name>
-	locationListView = new Coals.View.LocationList
-		collection: locationList
-		map: map.get('map')
+	Coals.Part.locationListView = new Coals.View.LocationList
+		collection: Coals.Part.locationList # Gotta feed our collection into the view
+		map: Coals.Part.map.get 'map' # Pass along the map object
