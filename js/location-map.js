@@ -8,6 +8,8 @@ Coals.Collection = {};
 
 Coals.View = {};
 
+Coals.Part = {};
+
 Coals.Model.Map = Backbone.Model.extend({
   defaults: {
     id: '',
@@ -55,14 +57,21 @@ Coals.Model.Location = Backbone.Model.extend({});
 
 Coals.Collection.Location = Backbone.Collection.extend({
   model: Coals.Model.Location,
-  url: url.ajax
+  url: url.ajax,
+  initialize: function() {
+    return this.on('remove', this.hideLocation);
+  },
+  hideLocation: function(location) {
+    return location.trigger('hide');
+  }
 });
 
 Coals.View.LocationList = Backbone.View.extend({
   initialize: function() {
-    return this.collection.on('add', this.addMarker, this);
+    this.collection.on('add', this.addMarker, this);
+    return this.collection.on('reset', this.addAllMarkers, this);
   },
-  render: function() {
+  addAllMarkers: function() {
     return this.collection.forEach(this.addMarker, this);
   },
   addMarker: function(location) {
@@ -71,46 +80,103 @@ Coals.View.LocationList = Backbone.View.extend({
       model: location
     });
     return locationView.render(this.options.map);
+  },
+  render: function() {
+    return this.addAllMarkers;
   }
 });
 
 Coals.View.Location = Backbone.View.extend({
+  initialize: function() {
+    this.model.on('hide', this.remove, this);
+    return this.data = {
+      title: this.model.get('title'),
+      link: this.model.get('permalink'),
+      address: this.model.get('address'),
+      imageUrl: this.model.get('image_url'),
+      times: this.model.get('times'),
+      type: this.model.get('type')
+    };
+  },
   render: function(map) {
-    var coords, marker, markerLatLng;
+    var coords;
+    this.map = map;
     coords = this.model.get('coordinates').split(", ");
-    markerLatLng = new google.maps.LatLng(coords[0], coords[1]);
-    marker = new google.maps.Marker({
-      position: markerLatLng,
-      title: this.model.get('title')
+    this.markerLatLng = new google.maps.LatLng(coords[0], coords[1]);
+    this.marker = new google.maps.Marker({
+      position: this.markerLatLng,
+      title: this.data.title
     });
-    return marker.setMap(map);
+    this.marker.setMap(map);
+    return this.makeInfoBox();
+  },
+  makeInfoBox: function() {
+    var infoView, locationData, options,
+      _this = this;
+    locationData = this.data;
+    options = {
+      closeBoxMargin: "8px",
+      boxStyle: {}
+    };
+    infoView = new Coals.View.InfoBox({
+      attributes: locationData
+    });
+    this.infoContent = infoView.render();
+    google.maps.event.addListener(this.marker, 'click', function() {
+      options.boxClass = "infoBox";
+      if (locationData.imageUrl != null) {
+        options.boxStyle.background = "url('" + locationData.imageUrl + "') no-repeat";
+        options.boxClass = "infoBox has-image";
+      }
+      Coals.Part.InfoBox.setContent(_this.infoContent);
+      Coals.Part.InfoBox.setOptions(options);
+      return Coals.Part.InfoBox.open(_this.map, _this.marker);
+    });
+    return google.maps.event.addListener(this.map, 'click', function() {
+      return Coals.Part.InfoBox.close();
+    });
+  }
+});
+
+Coals.View.InfoBox = Backbone.View.extend({
+  className: "location-window",
+  template: _.template('<a href="<%= link %>"><h3><%= title %></h3></a>\
+		<p><%= address %></p>\
+		<p><%= type %></p>\
+		<p><strong>Times Offered:</strong>\
+		<% _.each(times, function(time) { %> <%= time %><% }); %>\
+		</p>'),
+  render: function() {
+    var content;
+    content = this.$el.html(this.template(this.attributes));
+    return _.first(content);
   }
 });
 
 $(function() {
-  var locationList, locationListView, map, mapView;
-  map = new Coals.Model.Map({
+  Coals.Part.map = new Coals.Model.Map({
     zoom: 2
   });
-  map.initMap({
+  Coals.Part.map.initMap({
     coords: {
       latitude: 23.241346,
       longitude: 24.609375
     }
   });
-  mapView = new Coals.View.Map({
-    model: map
+  Coals.Part.mapView = new Coals.View.Map({
+    model: Coals.Part.map
   });
-  mapView.render();
-  locationList = new Coals.Collection.Location;
-  locationList.fetch({
+  Coals.Part.mapView.render();
+  Coals.Part.locationList = new Coals.Collection.Location();
+  Coals.Part.locationList.fetch({
     data: {
       action: 'get_locations'
     }
   });
-  return locationListView = new Coals.View.LocationList({
-    collection: locationList,
-    map: map.get('map')
+  Coals.Part.InfoBox = new InfoBox();
+  return Coals.Part.locationListView = new Coals.View.LocationList({
+    collection: Coals.Part.locationList,
+    map: Coals.Part.map.get('map')
   });
 });
 

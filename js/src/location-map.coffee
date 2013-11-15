@@ -41,10 +41,10 @@ Coals.View.Map = Backbone.View.extend
 	id: 'study-abroad-map'
 
 	initialize: ->
-		this.model.set( 'map', new google.maps.Map this.el, this.model.get('mapOptions'))
+		this.model.set 'map', new google.maps.Map this.el, this.model.get('mapOptions')
 
 	render: ->
-		$("#" + this.id).replaceWith(this.el)
+		$("#" + this.id).replaceWith this.el
 		return this
 
 # The location model
@@ -56,31 +56,100 @@ Coals.Collection.Location = Backbone.Collection.extend
 	model: Coals.Model.Location
 	url: url.ajax
 
+	initialize: ->
+		this.on 'remove', this.hideLocation
+
+	hideLocation: (location) ->
+		location.trigger 'hide'
+
 # The location collection-view. Takes care of the iteration over
 # the location collection
 Coals.View.LocationList = Backbone.View.extend
 	initialize: ->
 		this.collection.on 'add', this.addMarker, this
+		this.collection.on 'reset', this.addAllMarkers, this
 
-	render: ->
+	addAllMarkers: ->
 		this.collection.forEach this.addMarker, this
 
 	addMarker: (location) ->
 		locationView = new Coals.View.Location
 			model: location
-		locationView.render(this.options.map)
+		locationView.render this.options.map
+
+	render: ->
+		this.addAllMarkers
 
 # The individual view for each location.
 Coals.View.Location = Backbone.View.extend
-	render: (map)->
-		# assignedMap = map.get('map')
-		coords = this.model.get('coordinates').split(", ")
-		markerLatLng = new google.maps.LatLng coords[0], coords[1]
-		marker = new google.maps.Marker
-			position: markerLatLng
-			title: this.model.get('title')
+	initialize: ->
+		this.model.on 'hide', this.remove, this
 
-		marker.setMap(map)
+		# The data to pass along to the InfoBox
+		this.data =
+			title: this.model.get 'title'
+			link: this.model.get 'permalink'
+			address: this.model.get 'address'
+			imageUrl: this.model.get 'image_url'
+			times: this.model.get 'times'
+			type: this.model.get 'type'
+
+	render: (map)->
+		@map = map
+		coords = @model.get('coordinates').split(", ")
+		@markerLatLng = new google.maps.LatLng coords[0], coords[1]
+		@marker = new google.maps.Marker
+			position: @markerLatLng
+			title: @data.title
+
+		@marker.setMap map
+		@makeInfoBox()
+
+	makeInfoBox: ->
+		locationData = @data
+		options =
+			closeBoxMargin: "8px"
+			boxStyle: {}
+
+
+		infoView = new Coals.View.InfoBox
+			attributes: locationData
+
+		@infoContent = infoView.render()
+
+		# Using the global Coals.InfoBox for each marker.
+		# This allows InfoBoxes to self-close.
+		# Rewrites the InfoBox content on each click
+		google.maps.event.addListener @marker, 'click', =>
+			# Reset the InfoBox class
+			options.boxClass = "infoBox"
+
+			# Set the background image and add a class if it exists
+			if locationData.imageUrl?
+				options.boxStyle.background = "url('#{locationData.imageUrl}') no-repeat"
+				options.boxClass = "infoBox has-image"
+
+			Coals.Part.InfoBox.setContent( @infoContent )
+			Coals.Part.InfoBox.setOptions( options )
+			Coals.Part.InfoBox.open @map, @marker
+
+		# Close info window if the map is clicked
+		google.maps.event.addListener @map, 'click', =>
+			Coals.Part.InfoBox.close()
+
+Coals.View.InfoBox = Backbone.View.extend
+	className: "location-window"
+	template: _.template '<a href="<%= link %>"><h3><%= title %></h3></a>
+		<p><%= address %></p>
+		<p><%= type %></p>
+		<p><strong>Times Offered:</strong>
+		<% _.each(times, function(time) { %> <%= time %><% }); %>
+		</p>'
+
+	render: ->
+		content = this.$el.html(this.template(this.attributes))
+		# Since this.$el.html() spits out an array, we need to pick out the element
+		_.first content
 
 # Now to make it all happen
 $ ->

@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 #wrap {
 	width: 92% !important;
 }
@@ -7,5 +9,46 @@
 
 	img {
 		max-width: none;
+	}
+
+	.infoBox {
+		width: 400px;
+		background-color: white;
+		@include border-radius(10px);
+		@include box-shadow(rgba(0,0,0,1.0) 3px 3px 15px);
+
+		.location-window {
+			padding: 1em;
+
+			h3 {
+				margin-top: 0;
+				margin-bottom: 5px;
+			}
+
+			p {
+				margin: 3px 5px;
+				font-size: 14px;
+			}
+
+		}
+
+		&.has-image {
+			height: 250px;
+
+			.location-window {
+				position: absolute;
+				bottom: 0;
+				width: 378px;
+				height: 82px;
+				color: white;
+				background-color: rgba(0, 0, 0, 0.5);
+				@include border-bottom-left-radius(10px);
+				@include border-bottom-right-radius(10px);
+
+				a {
+					color: white;
+				}
+			}
+		}
 	}
 }
