@@ -18,19 +18,19 @@ Coals.Model.Map = Backbone.Model.extend
 		minZoom: 2
 
 	initMap: (position) ->
-		this.set 'position', position
+		@set 'position', position
 		currentLatLng = new google.maps.LatLng position.coords.latitude, position.coords.longitude
-		this.set 'currentLatLng', currentLatLng
+		@set 'currentLatLng', currentLatLng
 
 		mapOptions = 
-			zoom: this.get('zoom')
-			minZoom: this.get('minZoom')
-			maxZoom: this.get('maxZoom')
+			zoom: @get('zoom')
+			minZoom: @get('minZoom')
+			maxZoom: @get('maxZoom')
 			center: currentLatLng
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 			mapTypeControl: false
 
-		this.set 'mapOptions', mapOptions
+		@set 'mapOptions', mapOptions
 
 # The map view. This is what's called to render the map.
 Coals.View.Map = Backbone.View.extend
@@ -41,10 +41,10 @@ Coals.View.Map = Backbone.View.extend
 	id: 'study-abroad-map'
 
 	initialize: ->
-		this.model.set 'map', new google.maps.Map this.el, this.model.get('mapOptions')
+		@model.set 'map', new google.maps.Map @el, @model.get('mapOptions')
 
 	render: ->
-		$("#" + this.id).replaceWith this.el
+		$("#" + @id).replaceWith @el
 		return this
 
 # The location model
@@ -57,7 +57,7 @@ Coals.Collection.Location = Backbone.Collection.extend
 	url: url.ajax
 
 	initialize: ->
-		this.on 'remove', this.hideLocation
+		@on 'remove', @hideLocation
 
 	hideLocation: (location) ->
 		location.trigger 'hide'
@@ -66,33 +66,33 @@ Coals.Collection.Location = Backbone.Collection.extend
 # the location collection
 Coals.View.LocationList = Backbone.View.extend
 	initialize: ->
-		this.collection.on 'add', this.addMarker, this
-		this.collection.on 'reset', this.addAllMarkers, this
+		@collection.on 'add', @addMarker, this
+		@collection.on 'reset', @addAllMarkers, this
 
 	addAllMarkers: ->
-		this.collection.forEach this.addMarker, this
+		@collection.forEach @addMarker, this
 
 	addMarker: (location) ->
 		locationView = new Coals.View.Location
 			model: location
-		locationView.render this.options.map
+		locationView.render @options.map
 
 	render: ->
-		this.addAllMarkers
+		@addAllMarkers
 
 # The individual view for each location.
 Coals.View.Location = Backbone.View.extend
 	initialize: ->
-		this.model.on 'hide', this.remove, this
+		@model.on 'hide', @remove, this
 
 		# The data to pass along to the InfoBox
-		this.data =
-			title: this.model.get 'title'
-			link: this.model.get 'permalink'
-			address: this.model.get 'address'
-			imageUrl: this.model.get 'image_url'
-			times: this.model.get 'times'
-			type: this.model.get 'type'
+		@data =
+			title: @model.get 'title'
+			link: @model.get 'permalink'
+			address: @model.get 'address'
+			imageUrl: @model.get 'image_url'
+			times: @model.get 'times'
+			type: @model.get 'type'
 
 	render: (map)->
 		@map = map
@@ -147,8 +147,8 @@ Coals.View.InfoBox = Backbone.View.extend
 		</p>'
 
 	render: ->
-		content = this.$el.html(this.template(this.attributes))
-		# Since this.$el.html() spits out an array, we need to pick out the element
+		content = @$el.html(@template(@attributes))
+		# Since @$el.html() spits out an array, we need to pick out the element
 		_.first content
 
 # Now to make it all happen
@@ -181,7 +181,7 @@ $ ->
 
 	# Setup the location collection-view.
 	# This renders each location as a marker on the map
-	# Any non-core attribute will be accessible through this.options.<name>
+	# Any non-core attribute will be accessible through @options.<name>
 	Coals.Part.locationListView = new Coals.View.LocationList
 		collection: Coals.Part.locationList # Gotta feed our collection into the view
 		map: Coals.Part.map.get 'map' # Pass along the map object
