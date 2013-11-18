@@ -4,6 +4,8 @@ Coals.Model = {}
 Coals.Collection = {}
 Coals.View = {}
 Coals.Part = {}
+Coals.Url =
+	Ajax: url.ajax
 
 # The Map model
 Coals.Model.Map = Backbone.Model.extend
@@ -23,9 +25,9 @@ Coals.Model.Map = Backbone.Model.extend
 		@set 'currentLatLng', currentLatLng
 
 		mapOptions = 
-			zoom: @get('zoom')
-			minZoom: @get('minZoom')
-			maxZoom: @get('maxZoom')
+			zoom: @get 'zoom'
+			minZoom: @get 'minZoom'
+			maxZoom: @get 'maxZoom'
 			center: currentLatLng
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 			mapTypeControl: false
@@ -41,7 +43,7 @@ Coals.View.Map = Backbone.View.extend
 	id: 'study-abroad-map'
 
 	initialize: ->
-		@model.set 'map', new google.maps.Map @el, @model.get('mapOptions')
+		@model.set 'map', new google.maps.Map @el, @model.get 'mapOptions'
 
 	render: ->
 		$("#" + @id).replaceWith @el
@@ -54,7 +56,9 @@ Coals.Model.Location = Backbone.Model.extend {}
 # locations and corresponding data when fetched.
 Coals.Collection.Location = Backbone.Collection.extend
 	model: Coals.Model.Location
-	url: url.ajax
+	url: Coals.Url.Ajax
+	data:
+		action: 'get_locations'
 
 	initialize: ->
 		@on 'remove', @hideLocation
@@ -111,7 +115,6 @@ Coals.View.Location = Backbone.View.extend
 			closeBoxMargin: "8px"
 			boxStyle: {}
 
-
 		infoView = new Coals.View.InfoBox
 			attributes: locationData
 
@@ -129,8 +132,8 @@ Coals.View.Location = Backbone.View.extend
 				options.boxStyle.background = "url('#{locationData.imageUrl}') no-repeat"
 				options.boxClass = "infoBox has-image"
 
-			Coals.Part.InfoBox.setContent( @infoContent )
-			Coals.Part.InfoBox.setOptions( options )
+			Coals.Part.InfoBox.setContent @infoContent
+			Coals.Part.InfoBox.setOptions options
 			Coals.Part.InfoBox.open @map, @marker
 
 		# Close info window if the map is clicked
@@ -147,7 +150,7 @@ Coals.View.InfoBox = Backbone.View.extend
 		</p>'
 
 	render: ->
-		content = @$el.html(@template(@attributes))
+		content = @$el.html @template(@attributes)
 		# Since @$el.html() spits out an array, we need to pick out the element
 		_.first content
 
@@ -170,14 +173,11 @@ $ ->
 	# Show the map on the page!
 	Coals.Part.mapView.render()
 
-	# Setup the location collection and get locations from the server
-	Coals.Part.locationList = new Coals.Collection.Location()
-	Coals.Part.locationList.fetch
-		data:
-			action: 'get_locations' # Custom AJAX action identifier in WP
+	# Setup the location collection
+	Coals.Part.locationList = new Coals.Collection.Location
 
 	# Initialize the global InfoBox
-	Coals.Part.InfoBox = new InfoBox()
+	Coals.Part.InfoBox = new InfoBox
 
 	# Setup the location collection-view.
 	# This renders each location as a marker on the map
@@ -185,3 +185,6 @@ $ ->
 	Coals.Part.locationListView = new Coals.View.LocationList
 		collection: Coals.Part.locationList # Gotta feed our collection into the view
 		map: Coals.Part.map.get 'map' # Pass along the map object
+
+	# Get the locations from the server
+	Coals.Part.locationList.reset $.parseJSON(data.locations)

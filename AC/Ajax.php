@@ -8,8 +8,8 @@ class AC_Ajax {
 
 		self::$ajax_url = admin_url( 'admin-ajax.php' );
 
-		add_action( 'wp_ajax_get_locations', array( $this, 'get_locations' ) );
-		add_action( 'wp_ajax_nopriv_get_locations', array( $this, 'get_locations' ) );
+		// add_action( 'wp_ajax_get_locations', array( $this, 'get_locations' ) );
+		// add_action( 'wp_ajax_nopriv_get_locations', array( $this, 'get_locations' ) );
 
 	}
 
@@ -23,11 +23,15 @@ class AC_Ajax {
 
 	}
 
-	public function get_locations() {
-
+	public static function set_locations() {
 
 		$locations = json_encode( AC_Query::get_locations( true ) );
-		die($locations);
+
+		$data = array(
+			'locations' => $locations,
+		);
+
+		wp_localize_script( 'location-map', 'data', $data );
 
 	}
 

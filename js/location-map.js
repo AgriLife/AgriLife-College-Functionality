@@ -10,6 +10,10 @@ Coals.View = {};
 
 Coals.Part = {};
 
+Coals.Url = {
+  Ajax: url.ajax
+};
+
 Coals.Model.Map = Backbone.Model.extend({
   defaults: {
     id: '',
@@ -57,7 +61,10 @@ Coals.Model.Location = Backbone.Model.extend({});
 
 Coals.Collection.Location = Backbone.Collection.extend({
   model: Coals.Model.Location,
-  url: url.ajax,
+  url: Coals.Url.Ajax,
+  data: {
+    action: 'get_locations'
+  },
   initialize: function() {
     return this.on('remove', this.hideLocation);
   },
@@ -167,17 +174,13 @@ $(function() {
     model: Coals.Part.map
   });
   Coals.Part.mapView.render();
-  Coals.Part.locationList = new Coals.Collection.Location();
-  Coals.Part.locationList.fetch({
-    data: {
-      action: 'get_locations'
-    }
-  });
-  Coals.Part.InfoBox = new InfoBox();
-  return Coals.Part.locationListView = new Coals.View.LocationList({
+  Coals.Part.locationList = new Coals.Collection.Location;
+  Coals.Part.InfoBox = new InfoBox;
+  Coals.Part.locationListView = new Coals.View.LocationList({
     collection: Coals.Part.locationList,
     map: Coals.Part.map.get('map')
   });
+  return Coals.Part.locationList.reset($.parseJSON(data.locations));
 });
 
 /*
