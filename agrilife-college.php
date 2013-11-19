@@ -60,6 +60,7 @@ class AgriLife_College {
 
 		// Add shortcodes
 		$ac_shortcode_collegeadvisors = new AC_Shortcode_CollegeAdvisors;
+		$ac_shortcode_studyabroadmap = new AC_Shortcode_StudyAbroadMap;
 
 		// Use proper templates
 		$ac_template = new AC_Template;
