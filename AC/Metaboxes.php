@@ -125,6 +125,16 @@ class AC_Metaboxes {
 					'type' => 'text',
 				),
 				array(
+					'id' => $prefix . 'program-coordinates',
+					'type' => 'hidden',
+					'std' => '',
+				),
+				array(
+					'id' => $prefix . 'program-formatted-address',
+					'type' => 'hidden',
+					'std' => '',
+				),
+				array(
 					'name' => 'Region',
 					'id' => $prefix . 'program-region',
 					'type' => 'taxonomy',

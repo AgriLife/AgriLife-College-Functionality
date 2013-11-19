@@ -29,6 +29,7 @@ class AC_PostType_Locations {
 			'labels' => $labels,
 			'public' => true,
 			'show_ui' => true,
+			'has_archive' => 'location',
 			'rewrite' => array( 'slug' => 'location' ),
 			'supports' => array( 'thumbnail' ),
 		);

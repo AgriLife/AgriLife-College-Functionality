@@ -3,7 +3,7 @@
 * Plugin Name: AgriLife College Functionality
 * Plugin URI: http://aglifesciences.tamu.edu
 * Description: Contains the required functionality for the main college website
-* Version: 0.1
+* Version: 0.2
 * Author: J. Aaron Eaton
 * Author URI: http://channeleaton.com
 */
@@ -35,6 +35,9 @@ class AgriLife_College {
 
 	public function init() {
 
+		// Load required assets
+		$ac_assets = new AC_Assets;
+
 		// Create the Faculty/Alumni Notes Custom Post Type
 		$ac_posttype_notes = new AC_PostType_Notes;
 
@@ -57,6 +60,13 @@ class AgriLife_College {
 
 		// Add shortcodes
 		$ac_shortcode_collegeadvisors = new AC_Shortcode_CollegeAdvisors;
+		$ac_shortcode_studyabroadmap = new AC_Shortcode_StudyAbroadMap;
+
+		// Use proper templates
+		$ac_template = new AC_Template;
+
+		// AJAX all-the-things
+		$ac_ajax = new AC_Ajax;
 
 	}
 
