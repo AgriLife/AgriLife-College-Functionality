@@ -3,7 +3,7 @@
 * Plugin Name: AgriLife College Functionality
 * Plugin URI: http://aglifesciences.tamu.edu
 * Description: Contains the required functionality for the main college website
-* Version: 0.1
+* Version: 0.2
 * Author: J. Aaron Eaton
 * Author URI: http://channeleaton.com
 */
