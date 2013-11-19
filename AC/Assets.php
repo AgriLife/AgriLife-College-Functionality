@@ -16,7 +16,7 @@ class AC_Assets {
 
 		wp_enqueue_script(
 			'location-fields',
-			AC_PLUGIN_DIR_URL . '/js/location-fields.js',
+			AC_PLUGIN_DIR_URL . 'js/location-fields.js',
 			false,
 			false,
 			true
