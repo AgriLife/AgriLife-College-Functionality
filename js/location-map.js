@@ -21,9 +21,9 @@ Coals.Model.Map = Backbone.Model.extend({
     mapOptions: {},
     map: {},
     position: {},
-    zoom: 2,
+    zoom: 1,
     maxZoom: 10,
-    minZoom: 2
+    minZoom: 1
   },
   initMap: function(position) {
     var currentLatLng, mapOptions;
@@ -147,7 +147,7 @@ Coals.View.Location = Backbone.View.extend({
 
 Coals.View.InfoBox = Backbone.View.extend({
   className: "location-window",
-  template: _.template('<a href="<%= link %>"><h3><%= title %></h3></a>\
+  template: _.template('<h3><%= title %></h3>\
 		<p><%= address %></p>\
 		<p><%= type %></p>\
 		<p><strong>Times Offered:</strong>\
@@ -162,7 +162,7 @@ Coals.View.InfoBox = Backbone.View.extend({
 
 $(function() {
   Coals.Part.map = new Coals.Model.Map({
-    zoom: 2
+    zoom: 1
   });
   Coals.Part.map.initMap({
     coords: {

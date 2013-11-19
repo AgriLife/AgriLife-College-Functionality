@@ -13,6 +13,11 @@ class AC_Shortcode_StudyAbroadMap {
 	 */
 	public function create_shortcode() {
 
+		AC_Assets::enqueue_map_assets();
+		AC_Ajax::set_ajax_url();
+		AC_Ajax::get_locations();
+
+		$return = '<div id="study-abroad-map"></div>';
 
 		return $return;
 

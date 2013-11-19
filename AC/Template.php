@@ -4,7 +4,7 @@ class AC_Template {
 
 	public function __construct() {
 
-		add_action( 'template_redirect', array( $this, 'location_archive_template' ) );
+		// add_action( 'template_redirect', array( $this, 'location_archive_template' ) );
 
 	}
 
