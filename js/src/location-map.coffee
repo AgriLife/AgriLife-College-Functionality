@@ -6,6 +6,9 @@ Coals.View = {}
 Coals.Part = {}
 Coals.Url =
 	Ajax: url.ajax
+Coals.Data =
+	Markers: []
+Coals.Filter = {}
 
 # The Map model
 Coals.Model.Map = Backbone.Model.extend
@@ -74,7 +77,34 @@ Coals.View.LocationList = Backbone.View.extend
 		@collection.on 'reset', @addAllMarkers, this
 
 	addAllMarkers: ->
-		@collection.forEach @addMarker, this
+		if Coals.Filter.Time?
+			Coals.Filter.Stringified = for key, time of Coals.Filter.Time
+				"time:#{time} "
+
+		filterString = ''
+		if Coals.Filter.Stringified?
+			filterString = Coals.Filter.Stringified.join " "
+		console.log filterString
+		locations = QueryEngine.createCollection(@collection.models)
+			.setPill( 'time',
+				prefixes: ['time:']
+				callback: (model, value) ->
+					for time in model.get('times')
+						searchRegex = QueryEngine.createSafeRegex(value)
+						pass = searchRegex.test(time)
+						break if pass
+					return pass
+			)
+			.setSearchString(filterString)
+			.setFilter('search', (model,searchString) ->
+				return true unless searchString?
+				searchRegex = QueryEngine.createSafeRegex(searchString)
+				pass = searchRegex.test(model.get('title'))
+				return pass
+			)
+			.query()
+		console.log locations
+		locations.forEach @addMarker, this
 
 	addMarker: (location) ->
 		locationView = new Coals.View.Location
@@ -107,6 +137,7 @@ Coals.View.Location = Backbone.View.extend
 			title: @data.title
 
 		@marker.setMap map
+		Coals.Data.Markers.push @marker
 		@makeInfoBox()
 
 	makeInfoBox: ->
@@ -154,6 +185,38 @@ Coals.View.InfoBox = Backbone.View.extend
 		# Since @$el.html() spits out an array, we need to pick out the element
 		_.first content
 
+Coals.View.FilterForm = Backbone.View.extend
+	el: '#map-filters'
+	events: 
+		'change #time-offered': 'timeOffered'
+		'change #program-type': 'programType'
+		'change #program-major': 'programMajor'
+
+	initialize: ->
+		@template = _.template $('#time-offered').html()
+
+	timeOffered: (e) ->
+		@clearAllMarkers()
+		Coals.Filter.Time = [ $(e.target).val() ]
+		Coals.Part.locationListView.addAllMarkers()
+		console.log Coals.Filter
+
+	programType: (e) ->
+		@clearAllMarkers()
+		Coals.Filter.Type = [ $(e.target).val() ]
+		console.log Coals.Filter
+
+	programMajor: (e) ->
+		@clearAllMarkers()
+		Coals.Filter.Major = [ $(e.target).val() ]
+		console.log Coals.Filter
+
+	clearAllMarkers: ->
+		_.each Coals.Data.Markers, @clearMarker
+
+	clearMarker: (marker) ->
+		marker.setMap(null)
+
 # Now to make it all happen
 $ ->
 	# Setup the map
@@ -188,3 +251,5 @@ $ ->
 
 	# Get the locations from the server
 	Coals.Part.locationList.reset $.parseJSON(data.locations)
+
+	Coals.Part.filterForm = new Coals.View.FilterForm()

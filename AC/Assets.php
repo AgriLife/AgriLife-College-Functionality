@@ -46,9 +46,17 @@ class AC_Assets {
 		wp_enqueue_script( 'backbone' );
 
 		wp_enqueue_script(
+			'query-engine',
+			AC_PLUGIN_DIR_URL . '/js/query-engine.js',
+			false,
+			false,
+			true
+		);
+
+		wp_enqueue_script(
 			'location-map',
 			AC_PLUGIN_DIR_URL . '/js/location-map.js',
-			array( 'google-map' ),
+			array( 'google-map', 'query-engine' ),
 			false,
 			true
 		);	

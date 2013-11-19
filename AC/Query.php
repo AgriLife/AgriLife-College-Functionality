@@ -37,6 +37,12 @@ class AC_Query {
 				array_push( $departments, $dep->name );
 			}
 
+			$majors = array();
+			$program_majors = get_the_terms( $post->ID, 'program-major' );
+			foreach( $program_majors as $maj ) {
+				array_push( $majors, $maj->name );
+			}
+
 			$regions = array();
 			$program_regions = get_the_terms( $post->ID, 'program-region' );
 			foreach ( $program_regions as $reg ) {
@@ -73,6 +79,7 @@ class AC_Query {
 				'times'						 => $times,
 				'image_url'        => $image_url[0],
 				'permalink'        => $permalink,
+				'majors'					 => $majors,
 			);
 
 			array_push( $locations_meta, $location );

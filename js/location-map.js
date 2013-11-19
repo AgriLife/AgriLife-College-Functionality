@@ -14,6 +14,12 @@ Coals.Url = {
   Ajax: url.ajax
 };
 
+Coals.Data = {
+  Markers: []
+};
+
+Coals.Filter = {};
+
 Coals.Model.Map = Backbone.Model.extend({
   defaults: {
     id: '',
@@ -79,7 +85,50 @@ Coals.View.LocationList = Backbone.View.extend({
     return this.collection.on('reset', this.addAllMarkers, this);
   },
   addAllMarkers: function() {
-    return this.collection.forEach(this.addMarker, this);
+    var filterString, key, locations, time;
+    if (Coals.Filter.Time != null) {
+      Coals.Filter.Stringified = (function() {
+        var _ref, _results;
+        _ref = Coals.Filter.Time;
+        _results = [];
+        for (key in _ref) {
+          time = _ref[key];
+          _results.push("time:" + time + " ");
+        }
+        return _results;
+      })();
+    }
+    filterString = '';
+    if (Coals.Filter.Stringified != null) {
+      filterString = Coals.Filter.Stringified.join(" ");
+    }
+    console.log(filterString);
+    locations = QueryEngine.createCollection(this.collection.models).setPill('time', {
+      prefixes: ['time:'],
+      callback: function(model, value) {
+        var pass, searchRegex, _i, _len, _ref;
+        _ref = model.get('times');
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          time = _ref[_i];
+          searchRegex = QueryEngine.createSafeRegex(value);
+          pass = searchRegex.test(time);
+          if (pass) {
+            break;
+          }
+        }
+        return pass;
+      }
+    }).setSearchString(filterString).setFilter('search', function(model, searchString) {
+      var pass, searchRegex;
+      if (searchString == null) {
+        return true;
+      }
+      searchRegex = QueryEngine.createSafeRegex(searchString);
+      pass = searchRegex.test(model.get('title'));
+      return pass;
+    }).query();
+    console.log(locations);
+    return locations.forEach(this.addMarker, this);
   },
   addMarker: function(location) {
     var locationView;
@@ -115,6 +164,7 @@ Coals.View.Location = Backbone.View.extend({
       title: this.data.title
     });
     this.marker.setMap(map);
+    Coals.Data.Markers.push(this.marker);
     return this.makeInfoBox();
   },
   makeInfoBox: function() {
@@ -160,6 +210,40 @@ Coals.View.InfoBox = Backbone.View.extend({
   }
 });
 
+Coals.View.FilterForm = Backbone.View.extend({
+  el: '#map-filters',
+  events: {
+    'change #time-offered': 'timeOffered',
+    'change #program-type': 'programType',
+    'change #program-major': 'programMajor'
+  },
+  initialize: function() {
+    return this.template = _.template($('#time-offered').html());
+  },
+  timeOffered: function(e) {
+    this.clearAllMarkers();
+    Coals.Filter.Time = [$(e.target).val()];
+    Coals.Part.locationListView.addAllMarkers();
+    return console.log(Coals.Filter);
+  },
+  programType: function(e) {
+    this.clearAllMarkers();
+    Coals.Filter.Type = [$(e.target).val()];
+    return console.log(Coals.Filter);
+  },
+  programMajor: function(e) {
+    this.clearAllMarkers();
+    Coals.Filter.Major = [$(e.target).val()];
+    return console.log(Coals.Filter);
+  },
+  clearAllMarkers: function() {
+    return _.each(Coals.Data.Markers, this.clearMarker);
+  },
+  clearMarker: function(marker) {
+    return marker.setMap(null);
+  }
+});
+
 $(function() {
   Coals.Part.map = new Coals.Model.Map({
     zoom: 2
@@ -180,7 +264,8 @@ $(function() {
     collection: Coals.Part.locationList,
     map: Coals.Part.map.get('map')
   });
-  return Coals.Part.locationList.reset($.parseJSON(data.locations));
+  Coals.Part.locationList.reset($.parseJSON(data.locations));
+  return Coals.Part.filterForm = new Coals.View.FilterForm();
 });
 
 /*
