@@ -63,4 +63,16 @@ class AC_Assets {
 
 	}
 
+	public static function enqueue_location_single_assets() {
+
+		wp_enqueue_style(
+			'location-single',
+			AC_PLUGIN_DIR_URL . '/css/location-single.css',
+			false,
+			false,
+			'all'
+		);
+
+	}
+
 }

@@ -142,7 +142,7 @@ Coals.View.Location = Backbone.View.extend
 
 Coals.View.InfoBox = Backbone.View.extend
 	className: "location-window"
-	template: _.template '<h3><%= title %></h3>
+	template: _.template '<a href="<%= link %>"><h3><%= title %></h3></a>
 		<p><%= address %></p>
 		<p><%= type %></p>
 		<p><strong>Times Offered:</strong>

@@ -2,7 +2,7 @@
 
 __Plugin URI:__ https://github.com/AgriLife/AgriLife-College-Functionality
 __Description:__ Custom functionality for the College of Agriculture and Life Sciences
-__Version:__ 0.2
+__Version:__ 0.2.1
 __Author:__ J. Aaron Eaton
 __Author URI:__ http://channeleaton.com
 __License:__ GPL2
@@ -12,6 +12,11 @@ __License:__ GPL2
  - Study Abroad Locations Custom Post Type
 
 ## Changelog
+
+### 0.2.1
+
+* Created single location template
+* Location map view info boxes link to single template
 
 ### 0.2
 
