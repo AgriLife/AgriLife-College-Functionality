@@ -5,6 +5,7 @@ class AC_Template {
 	public function __construct() {
 
 		// add_action( 'template_redirect', array( $this, 'location_archive_template' ) );
+		add_filter( 'single_template', array( $this, 'location_single_template' ) );
 
 	}
 
@@ -17,6 +18,18 @@ class AC_Template {
 			$this->redirect_template( 'location-archive.php' );
 
 		}
+
+	}
+
+	public function location_single_template( $template ) {
+
+		global $post;
+
+		if ( 'location' == $post->post_type ) {
+			$template = AC_PLUGIN_DIRPATH . '/templates/location-single.php';
+		}
+
+		return $template;
 
 	}
 
