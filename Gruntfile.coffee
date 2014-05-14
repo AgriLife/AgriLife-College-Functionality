@@ -16,7 +16,7 @@ module.exports = (grunt) ->
       dist:
         options:
           config: 'config.rb'
-          specify: ['css/src/location-map.scss']
+          specify: ['css/src/location-map.scss', 'css/src/location-single.scss']
     jshint:
       files: [
         'js/*.js'
@@ -47,7 +47,7 @@ module.exports = (grunt) ->
   @loadNpmTasks 'grunt-contrib-cssmin'
   @loadNpmTasks 'grunt-contrib-watch'
 
-  @registerTask 'default', ['coffee', 'jshint', 'compass']
+  @registerTask 'default', ['coffee', 'compass']
   @registerTask 'package', ['default', 'cssmin', 'csslint']
 
   @event.on 'watch', (action, filepath) =>
