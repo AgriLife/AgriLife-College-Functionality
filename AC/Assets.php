@@ -85,6 +85,11 @@ class AC_Assets {
 			true
 		);
 
+		wp_register_style(
+			'people-style',
+			AC_PLUGIN_DIR_URL . '/css/grand-challenges-people.css'
+		);
+
 	}
 
 }
