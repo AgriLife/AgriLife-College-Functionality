@@ -40,7 +40,7 @@ class AC_Ajax {
 
 	public static function get_people() {
 
-		$agrilife_people = get_transient( 'agrilife_people' );
+		$agrilife_people = get_transient( 'agrilife_people_list' );
 
 		if ( false === $agrilife_people ) {
 			// Get from PeopleAPI
@@ -48,7 +48,7 @@ class AC_Ajax {
 			$soap = new \SoapClient( 'https://agrilifepeople-beta.tamu.edu/api/v4.cfc?wsdl' );
 			$api = new \AgriLife\Core\PeopleAPI( $soap );
 			$agrilife_people = $api->get_people( AGRILIFE_GET_PERSONNEL_HASH, array( 294, 286, 291, 379, 290, 297, 292, 300, 366, 298, 295, 396, 314, 302, 304 ) );
-			set_transient( 'agrilife_people', $agrilife_people, WEEK_IN_SECONDS );
+			set_transient( 'agrilife_people_list', $agrilife_people, WEEK_IN_SECONDS );
 		}
 
 		die( json_encode( $agrilife_people ) );
