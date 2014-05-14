@@ -51,7 +51,7 @@ class AC_Assets {
 			array( 'google-map' ),
 			false,
 			true
-		);	
+		);
 
 		wp_enqueue_style(
 			'location-map-style',
@@ -71,6 +71,18 @@ class AC_Assets {
 			false,
 			false,
 			'all'
+		);
+
+	}
+
+	public static function register_people_assets() {
+
+		wp_register_script(
+			'people',
+			AC_PLUGIN_DIR_URL . '/js/grand-challenges-people.js',
+			array( 'underscore' ),
+			false,
+			true
 		);
 
 	}
