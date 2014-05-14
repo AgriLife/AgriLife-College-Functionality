@@ -20,10 +20,10 @@
     font-weight: bold;
     margin: 0;
   }
-  a.people-email {
+  .people-email a{
     text-decoration: none;
   }
-  .people-specialty {
+  .people-specialty-list {
     margin-top: 1em;
   }
 
@@ -79,7 +79,7 @@
       a {
         width: inherit;
       }
-      @media all and (min-width: $breakpoint-medium) {
+      @media all and (min-width: 636px) {
         margin: .5em 0;
         float: left;
         width: 45%;
