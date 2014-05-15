@@ -78,6 +78,7 @@ class AC_Shortcode_GrandChallengesPeople {
 			),
 			$atts
 		);
+		AC_Ajax::set_ajax_url('people');
 		wp_enqueue_script( 'people' );
 		wp_enqueue_style( 'people-style' );
 		ob_start(); ?>
