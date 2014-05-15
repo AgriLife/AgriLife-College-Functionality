@@ -26,7 +26,8 @@ AgriLife.People = class People
 		)
 
 	getTerm: () ->
-		url = document.URL.split('#')[1].toLowerCase()
+		url = document.URL.split('#')[1]
+		if url? then url.toLowerCase()
 
 
 do ( $ = jQuery ) ->
@@ -43,5 +44,4 @@ do ( $ = jQuery ) ->
 			e.preventDefault()
 			query = $('input[name="p"]').val()
 			resultPage = $(this).attr('action')
-			console.log query
 			window.location.href = resultPage + '#' + query
