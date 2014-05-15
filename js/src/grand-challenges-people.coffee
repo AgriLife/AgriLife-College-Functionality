@@ -4,6 +4,7 @@ AgriLife = {} if not AgriLife
 AgriLife.People = class People
 
 	get: ->
+		console.log 'Fired'
 		$.ajax(
 			url: url.ajax
 			data:
@@ -32,9 +33,16 @@ AgriLife.People = class People
 do ( $ = jQuery ) ->
 	"use strict"
 	$ ->
+
 		people = new AgriLife.People
-		people.get()
+		if people.getTerm()? then people.get()
 
 		$('li.challenge').click (e) ->
 			people.filter($(this).data('challenge'))
 
+		$('.people-searchform').on 'submit', (e) ->
+			e.preventDefault()
+			query = $('input[name="p"]').val()
+			resultPage = $(this).attr('action')
+			console.log query
+			window.location.href = resultPage + '#' + query

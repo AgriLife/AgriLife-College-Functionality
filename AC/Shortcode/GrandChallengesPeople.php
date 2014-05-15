@@ -5,6 +5,7 @@ class AC_Shortcode_GrandChallengesPeople {
 	public function __construct() {
 
 		add_shortcode( 'grand_challenges_people', array( $this, 'create_shortcode' ) );
+		add_shortcode( 'grand_challenges_people_search', array( $this, 'create_search' ) );
 		add_action( 'wp_enqueue_scripts', 'AC_Assets::register_people_assets' );
 
 	}
@@ -31,10 +32,7 @@ class AC_Shortcode_GrandChallengesPeople {
 					<li class="challenge" data-challenge="Youth"><a href="#Youth" class="button secondary">Enriching Our Youth</a></li>
 					<li class="challenge" data-challenge="Economy"><a href="#Economy" class="button secondary">Growing Our Economy</a></li>
 				</ul>
-				<form role="search" class="people-searchform" method="get" id="searchform" action="http://local.wordpress.dev/college/">
-					<input type="text" class="s" name="s" id="s" placeholder="biochemistry" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/><br />
-					<input type="hidden" name="post_type" value="people" />
-				</form>
+				<?php global $post; echo $this->create_search(array('page'=>$post->post_name)); ?>
 			</div>
 			<ul id="people-listing-ul"></ul>
 		</div>
@@ -72,6 +70,28 @@ class AC_Shortcode_GrandChallengesPeople {
 
 		return $return;
 
+	}
+
+	public function create_search( $atts ) {
+
+		$a = shortcode_atts( array(
+			'page' => '',
+			),
+			$atts
+		);
+		wp_enqueue_script( 'people' );
+		wp_enqueue_style( 'people-style' );
+		ob_start(); ?>
+			<label>
+				<h4>Enter a Grand Challenge keyword to locate associated faculty</h4>
+			</label>
+			<form role="search" class="people-searchform" method="get" id="searchform" action="<?php echo home_url(); ?>/<?php echo $a['page']; ?>">
+				<input type="text" class="s" name="p" id="s" placeholder="Ecosystem" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/><br />
+			</form>
+		<?php
+		$return = ob_get_clean();
+
+		return $return;
 	}
 
 }
