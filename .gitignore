@@ -38,3 +38,8 @@ dwsync.xml
 intermediate
 .idea
 cache
+node_modules
+location-map.js
+grand-challenges-people.js
+location-fields.js
+grand-challenges-people.css

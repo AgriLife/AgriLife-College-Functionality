@@ -16,13 +16,13 @@ class AC_Ajax {
 
 	}
 
-	public static function set_ajax_url() {
+	public static function set_ajax_url( $handle = 'location-map' ) {
 
 		$url = array(
 			'ajax' => self::$ajax_url,
 		);
 
-		wp_localize_script( 'location-map', 'url', $url );
+		wp_localize_script( $handle, 'url', $url );
 
 	}
 
@@ -46,7 +46,7 @@ class AC_Ajax {
 		if ( false === $agrilife_people ) {
 			// Get from PeopleAPI
 			include plugin_dir_path( dirname( dirname(__FILE__) ) ) . '/agrilife-core/src/PeopleAPI.php';
-			$soap = new \SoapClient( 'https://agrilifepeople-beta.tamu.edu/api/v4.cfc?wsdl' );
+			$soap = new \SoapClient( 'https://agrilifepeople.tamu.edu/api/v4.cfc?wsdl' );
 			$api = new \AgriLife\Core\PeopleAPI( $soap );
 			$cached = false;
 			$agrilife_people = $api->get_people( AGRILIFE_GET_PERSONNEL_HASH, array( 294, 286, 291, 379, 290, 297, 292, 300, 366, 298, 295, 396, 314, 302, 304 ) );

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "test"
   },
-  "repository": "",
+  "repository": "http://github.com",
   "author": "J. Aaron Eaton",
   "license": "GPL2",
   "readmeFilename": "README.md",

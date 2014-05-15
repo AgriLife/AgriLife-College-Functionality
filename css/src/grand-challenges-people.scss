@@ -1,0 +1,128 @@
+/* Styles for Grand Challenges */
+
+.gc-list {
+  .people-search-form {
+    background: #f5f0e4;
+    ul{
+      margin-bottom: 1.5em;
+    }
+    .people-searchform {
+      width: 75%;
+      margin: 0 auto;
+    }
+  }
+  .people-image {
+    display: none;
+  }
+  .people-dept {
+    font-size: 14px;
+    color: #433C3A;
+    font-weight: bold;
+    margin: 0;
+  }
+  .people-email a{
+    text-decoration: none;
+  }
+  .people-specialty-list {
+    margin-top: 1em;
+  }
+
+  .button {
+    display: inline-block;
+    border-style: solid;
+    border-width: 0px;
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: normal;
+    height: inherit;
+    line-height: normal;
+    margin: 0 0 1.11111rem;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    display: inline-block;
+    padding-top: 0.88889rem;
+    padding-right: 1.77778rem;
+    padding-bottom: 0.94444rem;
+    padding-left: 1.77778rem;
+    font-size: 0.88889rem;
+    transition: background-color 300ms ease-out;
+  }
+
+  .button-group.radius .button {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}
+
+
+
+#content {
+  .gc-list {
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .button-wrap {
+      border: none;
+      float: none;
+      margin: 0;
+    }
+    .button-wrap {
+      border: none;
+      float: none;
+      margin: 0;
+    }
+  }
+  .button-group {
+    list-style: none;
+    margin: 0;
+    left: 0;
+
+    li {
+      width: 75%;
+      margin: .5em auto;
+      a {
+        width: inherit;
+      }
+      @media all and (min-width: 636px) {
+        margin: .5em 0;
+        float: left;
+        width: 45%;
+        padding: 0 2% 0 3%;
+        a {
+          width: 75%;
+        }
+      }
+    }
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+  }
+
+  .people-specialty-list {
+    li {
+      float: left;
+      border-radius: 3px;
+      font-weight: normal;
+      background: #500000;
+      padding: 0.16667rem 0.88889rem;
+      cursor: default;
+      color: #fff;
+      float: left;
+      display: inline;
+      margin-left: 0.88889rem;
+      margin-bottom: 0.55556rem;
+
+    }
+  }
+}
