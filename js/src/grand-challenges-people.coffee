@@ -4,7 +4,6 @@ AgriLife = {} if not AgriLife
 AgriLife.People = class People
 
 	get: ->
-		console.log 'Fired'
 		$.ajax(
 			url: url.ajax
 			data:
@@ -27,7 +26,7 @@ AgriLife.People = class People
 		)
 
 	getTerm: () ->
-		url = document.URL.split('#')[1]
+		url = document.URL.split('#')[1].toLowerCase()
 
 
 do ( $ = jQuery ) ->

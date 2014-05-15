@@ -26,11 +26,11 @@ class AC_Shortcode_GrandChallengesPeople {
 					<h4>Search faculty by specialty</h4>
 				</label>
 				<ul class="button-group radius">
-					<li class="challenge" data-challenge="Food"><a href="#Food" class="button secondary">Feeding Our World</a></li>
-					<li class="challenge" data-challenge="Environment"><a href="#Environment" class="button secondary">Protecting Our Environment</a></li>
-					<li class="challenge" data-challenge="Health"><a href="#Health" class="button secondary">Improving Our Health</a></li>
-					<li class="challenge" data-challenge="Youth"><a href="#Youth" class="button secondary">Enriching Our Youth</a></li>
-					<li class="challenge" data-challenge="Economy"><a href="#Economy" class="button secondary">Growing Our Economy</a></li>
+					<li class="challenge" data-challenge="food"><a href="#Food" class="button secondary">Feeding Our World</a></li>
+					<li class="challenge" data-challenge="environment"><a href="#Environment" class="button secondary">Protecting Our Environment</a></li>
+					<li class="challenge" data-challenge="health"><a href="#Health" class="button secondary">Improving Our Health</a></li>
+					<li class="challenge" data-challenge="youth"><a href="#Youth" class="button secondary">Enriching Our Youth</a></li>
+					<li class="challenge" data-challenge="economy"><a href="#Economy" class="button secondary">Growing Our Economy</a></li>
 				</ul>
 				<?php global $post; echo $this->create_search(array('page'=>$post->post_name)); ?>
 			</div>
