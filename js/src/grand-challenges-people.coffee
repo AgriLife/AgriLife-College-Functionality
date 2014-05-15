@@ -44,8 +44,4 @@ do ( $ = jQuery ) ->
 			e.preventDefault()
 			query = $('input[name="p"]').val()
 			resultPage = $(this).attr('action')
-			console.log query
-			console.log resultPage
 			window.location.href = resultPage + '/#' + query
-			console.log window.location.href
-			location.reload()
