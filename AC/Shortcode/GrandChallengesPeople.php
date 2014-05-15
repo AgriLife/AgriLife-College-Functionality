@@ -25,11 +25,11 @@ class AC_Shortcode_GrandChallengesPeople {
 					<h4>Search faculty by specialty</h4>
 				</label>
 				<ul class="button-group radius">
-					<li data-challenge="Food"><a href="#" class="button secondary">Feeding Our World</a></li>
-					<li data-challenge="Environment"><a href="#" class="button secondary">Protecting Our Environment</a></li>
-					<li data-challenge="Health"><a href="#" class="button secondary">Improving Our Health</a></li>
-					<li data-challenge="Youth"><a href="#" class="button secondary">Enriching Our Youth</a></li>
-					<li data-challege="Economy"><a href="#" class="button secondary">Growing Our Economy</a></li>
+					<li class="challenge" data-challenge="Food"><a href="#Food" class="button secondary">Feeding Our World</a></li>
+					<li class="challenge" data-challenge="Environment"><a href="#Environment" class="button secondary">Protecting Our Environment</a></li>
+					<li class="challenge" data-challenge="Health"><a href="#Health" class="button secondary">Improving Our Health</a></li>
+					<li class="challenge" data-challenge="Youth"><a href="#Youth" class="button secondary">Enriching Our Youth</a></li>
+					<li class="challenge" data-challenge="Economy"><a href="#Economy" class="button secondary">Growing Our Economy</a></li>
 				</ul>
 				<form role="search" class="people-searchform" method="get" id="searchform" action="http://local.wordpress.dev/college/">
 					<input type="text" class="s" name="s" id="s" placeholder="biochemistry" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/><br />

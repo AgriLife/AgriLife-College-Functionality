@@ -11,16 +11,11 @@ AgriLife.People = class People
 			success: (response) =>
 				response = JSON.parse(response)
 				@people = _.sortBy(response.people, 'lastname')
-				_.each(@people, (person) =>
-					template = $('script#people-template').html()
-					output = _.template template, person
-					$('#people-listing-ul').append(output)
-				)
+				@filter(@getTerm())
 		)
 
 	filter: (term) ->
 		$('#people-listing-ul').html('')
-		console.log "Filtering by #{term}"
 		filtered = _.filter(@people, (person) =>
 			_.contains(person.specializations, term)
 		)
@@ -30,11 +25,16 @@ AgriLife.People = class People
 			$('#people-listing-ul').append(output)
 		)
 
+	getTerm: () ->
+		url = document.URL.split('#')[1]
+
+
 do ( $ = jQuery ) ->
 	"use strict"
 	$ ->
 		people = new AgriLife.People
 		people.get()
 
-		$('.gc-selection ul li').click (e) ->
+		$('li.challenge').click (e) ->
 			people.filter($(this).data('challenge'))
+
