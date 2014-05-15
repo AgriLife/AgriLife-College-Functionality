@@ -5,7 +5,7 @@ AgriLife.People = class People
 
 	get: ->
 		$.ajax(
-			url: ajaxurl
+			url: url.ajax
 			data:
 				action: 'get_people'
 			success: (response) =>

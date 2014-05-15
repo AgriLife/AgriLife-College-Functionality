@@ -14,9 +14,9 @@ class AC_Shortcode_GrandChallengesPeople {
 	 */
 	public function create_shortcode() {
 
+		AC_Ajax::set_ajax_url('people');
 		wp_enqueue_script( 'people' );
 		wp_enqueue_style( 'people-style' );
-		AC_Ajax::set_ajax_url();
 
 		ob_start(); ?>
 		<div class="gc-list">

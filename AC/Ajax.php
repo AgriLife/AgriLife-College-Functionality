@@ -16,13 +16,13 @@ class AC_Ajax {
 
 	}
 
-	public static function set_ajax_url() {
+	public static function set_ajax_url( $handle = 'location-map' ) {
 
 		$url = array(
 			'ajax' => self::$ajax_url,
 		);
 
-		wp_localize_script( 'location-map', 'url', $url );
+		wp_localize_script( $handle, 'url', $url );
 
 	}
 
