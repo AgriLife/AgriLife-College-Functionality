@@ -50,7 +50,6 @@ class AC_Shortcode_GrandChallengesPeople {
 					</div>
 					<div class="people-contact-details">
 						<p class="people-email email"><a href="mailto:<%= emailaddress %>"><%= _.escape(emailaddress) %></a></p>
-						<p class="people-specialty"><a href="#">Specializations</a></p>
 					</div>
 					<% if (specializations != false) { %>
 						<div class="people-specialty-list expanded">
