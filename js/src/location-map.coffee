@@ -24,7 +24,7 @@ Coals.Model.Map = Backbone.Model.extend
 		currentLatLng = new google.maps.LatLng position.coords.latitude, position.coords.longitude
 		@set 'currentLatLng', currentLatLng
 
-		mapOptions = 
+		mapOptions =
 			zoom: @get 'zoom'
 			minZoom: @get 'minZoom'
 			maxZoom: @get 'maxZoom'
@@ -69,7 +69,9 @@ Coals.Collection.Location = Backbone.Collection.extend
 # The location collection-view. Takes care of the iteration over
 # the location collection
 Coals.View.LocationList = Backbone.View.extend
-	initialize: ->
+	initialize: (options) ->
+		console.log options
+		@options = options
 		@collection.on 'add', @addMarker, this
 		@collection.on 'reset', @addAllMarkers, this
 
