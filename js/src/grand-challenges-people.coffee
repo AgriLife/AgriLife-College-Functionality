@@ -35,7 +35,7 @@ do ( $ = jQuery ) ->
 	$ ->
 
 		people = new AgriLife.People
-		if people.getTerm()? then people.get()
+		people.get()
 
 		$('li.challenge').click (e) ->
 			people.filter($(this).data('challenge'))
