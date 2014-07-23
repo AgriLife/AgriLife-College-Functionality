@@ -27,7 +27,7 @@ AgriLife.People = class People
 
 	getTerm: () ->
 		url = document.URL.split('=')[1]
-		if url? then url.toLowerCase() else url
+		if url? then url.toLowerCase().replace(/%20| /g, ' ') else url
 
 
 do ( $ = jQuery ) ->
