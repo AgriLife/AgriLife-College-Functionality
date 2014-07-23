@@ -86,7 +86,7 @@ class AC_Shortcode_GrandChallengesPeople {
 				<h4>Enter a Grand Challenge keyword to locate associated faculty</h4>
 			</label>
 			<form role="search" class="people-searchform" method="get" id="searchform" action="<?php echo home_url(); ?>/<?php echo $a['page']; ?>">
-				<input type="text" class="s" name="p" id="s" placeholder="Ecosystem" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/><br />
+				<input type="text" class="s" name="p" id="s" placeholder="Search for a term" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/><br />
 			</form>
 		<?php
 		$return = ob_get_clean();

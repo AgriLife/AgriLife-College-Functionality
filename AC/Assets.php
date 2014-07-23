@@ -81,7 +81,7 @@ class AC_Assets {
 			'people',
 			AC_PLUGIN_DIR_URL . '/js/grand-challenges-people.js',
 			array( 'underscore' ),
-			false,
+			'0.3',
 			true
 		);
 
