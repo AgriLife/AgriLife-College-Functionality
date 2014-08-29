@@ -8,6 +8,7 @@ class AC_Shortcode_GrandChallengesPeople {
 		add_shortcode( 'grand_challenges_people_search', array( $this, 'create_search' ) );
 		add_action( 'wp_enqueue_scripts', 'AC_Assets::register_people_assets' );
         add_action( 'wp_head', array( $this, 'autocomplete_json_data') );
+        add_action( 'wp_enqueue_scripts', 'AC_Assets::register_autocomplete_assets');
 
 	}
 
