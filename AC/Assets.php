@@ -85,6 +85,14 @@ class AC_Assets {
 			true
 		);
 
+        wp_enqueue_script('jquery-ui-autocomplete');
+
+        wp_enqueue_style('plugin_name-admin-ui-css',
+            '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/smoothness/jquery-ui.css',
+            false,
+            PLUGIN_VERSION,
+            false);
+
 		wp_register_style(
 			'people-style',
 			AC_PLUGIN_DIR_URL . '/css/grand-challenges-people.css'
