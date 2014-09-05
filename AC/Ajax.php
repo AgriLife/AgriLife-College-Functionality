@@ -49,7 +49,7 @@ class AC_Ajax {
 			$soap = new \SoapClient( 'https://agrilifepeople.tamu.edu/api/v4.cfc?wsdl' );
 			$api = new \AgriLife\Core\PeopleAPI( $soap );
 			$cached = false;
-			$agrilife_people = $api->get_people( AGRILIFE_GET_PERSONNEL_HASH, array( 294, 286, 291, 379, 290, 297, 292, 300, 366, 298, 295, 396, 314, 302, 304 ) );
+			$agrilife_people = $api->get_people( AGRILIFE_GET_PERSONNEL_HASH, array( 294, 286, 291, 379, 290, 297, 292, 300, 366, 298, 295, 396, 314, 302, 304, 329, 353, 354, 355, 356, 357, 358, 359, 361, 362, 363, 364, 365 ) );
 			set_transient( 'agrilife_people_list', $agrilife_people, WEEK_IN_SECONDS );
 		}
 
