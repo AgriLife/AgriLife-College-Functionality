@@ -1,3 +1,4 @@
+do ($ = jQuery)
 # Get things organized, fool!
 Coals = {}
 Coals.Model = {}
@@ -15,7 +16,7 @@ Coals.Model.Map = Backbone.Model.extend
 		mapOptions: {}
 		map: {}
 		position: {}
-		zoom: 1
+		zoom: 2
 		maxZoom: 10
 		minZoom: 1
 
@@ -160,13 +161,12 @@ Coals.View.InfoBox = Backbone.View.extend
 $ ->
 	# Setup the map
 	Coals.Part.map = new Coals.Model.Map
-		zoom: 1
 
 	# Initialize the map model
 	Coals.Part.map.initMap
 		coords:
-			latitude: 23.241346
-			longitude: 24.609375
+			latitude: 30
+			longitude: 11
 
 	# Setup the map view
 	Coals.Part.mapView = new Coals.View.Map

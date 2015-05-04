@@ -100,7 +100,7 @@ class AC_Shortcode_GrandChallengesPeople {
 
         echo'
         <script>
-          $(function() {
+          jQuery(function() {
             var availableTags = [
                 "Abiotic Stress",
                 "Abiotic Stress Physiology",
@@ -1050,7 +1050,7 @@ class AC_Shortcode_GrandChallengesPeople {
                 "Zoology",
                 "Zoonotic Diseases"
             ];
-            $( "#s" ).autocomplete({
+            jQuery( "#s" ).autocomplete({
               source: availableTags
             });
           });
