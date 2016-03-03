@@ -2,7 +2,7 @@
 
 class AC_Ajax {
 
-	private static $ajax_url = '';
+	private static $ajax_url = ''; 
 
 	public function __construct() {
 
@@ -41,6 +41,7 @@ class AC_Ajax {
 	public static function get_people() {
 
     $method = 'people';
+    $applicationID = 3;
     $limitedunits = array( 294, 286, 291, 379, 290, 297, 292, 300, 366, 298, 295, 396, 314, 302, 304, 329, 353, 354, 355, 356, 357, 358, 359, 361, 362, 363, 364, 365 );
 
 		$cached = true;
@@ -52,7 +53,7 @@ class AC_Ajax {
 			include plugin_dir_path( dirname( dirname(__FILE__) ) ) . '/agrilife-core/src/PeopleAPI.php';
       $api = new \AgriLife\Core\PeopleAPI();
 			$cached = false;
-      $agrilife_people = $api->get_people( AGRILIFE_GET_PERSONNEL_HASH, $limitedunits );
+      $agrilife_people = $api->get_people( base64_encode( md5( $applicationID . AGRILIFE_GET_PERSONNEL_HASH, true ) ), $limitedunits );
       
       set_transient( 'agrilife_people_list', $agrilife_people, WEEK_IN_SECONDS );
 		}

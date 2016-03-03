@@ -43,11 +43,11 @@ class AC_Shortcode_GrandChallengesPeople {
 				<div class="role people-container">
 					<% if ( ! _.isEmpty(picture)) { %>
 					<div class="people-image">
-						<% if ( ! _.isEmpty(profile)) { %><a href="<%= profile %>"><% } %><img src="<%= picture %>" alt="<%= firstname %> <%= lastname %>" /><% if ( ! _.isEmpty(profile)) { %></a><% } %>
+						<% if ( ! _.isEmpty(profile)) { %><a href="<%= profile %>"><% } %><img src="<%= picture %>" alt="<%= preferredname %> <%= lastname %>" /><% if ( ! _.isEmpty(profile)) { %></a><% } %>
 					</div>
 					<% } %>
 					<div class="people-head">
-						<h2 class="people-name"><% if ( ! _.isEmpty(profile)) { %><a href="<%= profile %>"><% } %><%= firstname %> <%= lastname %><% if ( ! _.isEmpty(profile)) { %></a><% } %></h2>
+						<h2 class="people-name"><% if ( ! _.isEmpty(profile)) { %><a href="<%= profile %>"><% } %><%= preferredname %> <%= lastname %><% if ( ! _.isEmpty(profile)) { %></a><% } %></h2>
 						<h3 class="people-dept"><%= department %></h3>
 					</div>
 					<div class="people-contact-details">
