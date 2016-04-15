@@ -22,6 +22,7 @@ module.exports = (grunt) ->
 	@loadNpmTasks 'grunt-contrib-watch'
 
 	@registerTask 'default', ['coffee', 'compass']
+  @registerTask 'package', ['default']
 
 	@event.on 'watch', (action, filepath) =>
 		@log.writeln('File changed')
