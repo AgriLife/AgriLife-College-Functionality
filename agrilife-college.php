@@ -1,6 +1,6 @@
 <?php
 /**
-* Plugin Name: AgriLife College Functionality
+* Plugin Name: AgriLife Grand Challenges Plugin
 * Plugin URI: http://aglifesciences.tamu.edu
 * Description: Contains the required functionality for the main college website
 * Version: 0.3
