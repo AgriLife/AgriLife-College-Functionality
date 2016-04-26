@@ -1,6 +1,6 @@
-# AgriLife College Functionality
+# AgriLife Grand Challenges
 
-__Plugin URI:__ https://github.com/AgriLife/AgriLife-College-Functionality
+__Plugin URI:__ https://github.com/AgriLife/AgriLife-Grand-Challenges-Plugin
 __Description:__ Custom functionality for the College of Agriculture and Life Sciences: Currently used on Grand Challenges site
 __Version:__ 0.2.1
 __Author:__ J. Aaron Eaton
