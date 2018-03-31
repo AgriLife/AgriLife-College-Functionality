@@ -21,7 +21,8 @@ AgriLife.People = class People
 		)
 		_.each(filtered, (person) =>
 			template = $('script#people-template').html()
-			output = _.template template, person
+			compiled = _.template template
+			output = compiled person
 			$('#people-listing-ul').append(output)
 		)
 
