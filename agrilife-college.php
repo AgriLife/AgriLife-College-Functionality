@@ -68,6 +68,12 @@ class AgriLife_College {
 
 		// AJAX all-the-things
 		$ac_ajax = new AC_Ajax;
+		
+		// Add Image Sizes
+		if ( function_exists( 'add_image_size' ) ) {
+			add_image_size( 'college-homepage-slider', 748, 494, true );
+		}
+
 
 	}
 
