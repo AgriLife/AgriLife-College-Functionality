@@ -41,27 +41,27 @@ class AC_Shortcode_GrandChallengesPeople {
 		<script type="text/template" id="people-template">
 			<li class="people-listing-item">
 				<div class="role people-container">
-					<% if ( ! _.isEmpty(picture)) { %>
+					{{ if ( ! _.isEmpty(picture)) { }}
 					<div class="people-image">
-						<% if ( ! _.isEmpty(profile)) { %><a href="<%= profile %>"><% } %><img src="<%= picture %>" alt="<%= preferredname %> <%= lastname %>" /><% if ( ! _.isEmpty(profile)) { %></a><% } %>
+						{{ if ( ! _.isEmpty(profile)) { }}<a href="{{= profile }}">{{ } }}<img src="{{= picture }}" alt="{{= preferredname }} {{= lastname }}" />{{ if ( ! _.isEmpty(profile)) { }}</a>{{ } }}
 					</div>
-					<% } %>
+					{{ } }}
 					<div class="people-head">
-						<h2 class="people-name"><% if ( ! _.isEmpty(profile)) { %><a href="<%= profile %>"><% } %><%= preferredname %> <%= lastname %><% if ( ! _.isEmpty(profile)) { %></a><% } %></h2>
-						<h3 class="people-dept"><%= department %></h3>
+						<h2 class="people-name">{{ if ( ! _.isEmpty(profile)) { }}<a href="{{= profile }}">{{ } }}{{= preferredname }} {{= lastname }}{{ if ( ! _.isEmpty(profile)) { }}</a>{{ } }}</h2>
+						<h3 class="people-dept">{{= department }}</h3>
 					</div>
 					<div class="people-contact-details">
-						<p class="people-email email"><a href="mailto:<%= emailaddress %>"><%= _.escape(emailaddress) %></a></p>
+						<p class="people-email email"><a href="mailto:{{= emailaddress }}">{{= _.escape(emailaddress) }}</a></p>
 					</div>
-					<% if (specializations != false) { %>
+					{{ if (specializations != false) { }}
 						<div class="people-specialty-list expanded">
 							<ul>
-								<% _.each(specializations, function(sp) { %>
-									<li><%= sp %></li>
-								<% }); %>
+								{{ _.each(specializations, function(sp) { }}
+									<li>{{= sp }}</li>
+								{{ }); }}
 							</ul>
 						</div>
-					<% } %>
+					{{ } }}
 				</div>
 			</li>
 		</script>
