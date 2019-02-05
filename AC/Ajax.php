@@ -53,7 +53,7 @@ class AC_Ajax {
 			include plugin_dir_path( dirname( dirname(__FILE__) ) ) . 'AgriLife-Core/src/PeopleAPI.php';
       $api = new \AgriLife\Core\PeopleAPI();
 			$cached = false;
-      $agrilife_people = $api->get_people( base64_encode( md5( $applicationID . AGRILIFE_GET_PERSONNEL_HASH, true ) ), $limitedunits );
+      $agrilife_people = $api->get_people( base64_encode( md5( $applicationID . AGRILIFE_API_KEY, true ) ), $limitedunits );
 
       set_transient( 'agrilife_people_list', $agrilife_people, WEEK_IN_SECONDS );
 		}

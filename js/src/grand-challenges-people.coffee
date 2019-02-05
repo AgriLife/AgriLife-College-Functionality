@@ -19,14 +19,14 @@ AgriLife.People = class People
 		filtered = _.filter(@people, (person) =>
 			_.contains(person.specializations, term)
 		)
-		saveSettings = _.templateSettings
-		_.templateSettings =
-			evaluate : /\{\{(.+?)\}\}/g
-			interpolate : /\{\{=(.+?)\}\}/g
-		_.templateSettings = saveSettings
 		_.each(filtered, (person) =>
 			template = $('script#people-template').html()
+			saveSettings = _.templateSettings
+			_.templateSettings =
+				evaluate : /\{\{(.+?)\}\}/g
+				interpolate : /\{\{=(.+?)\}\}/g
 			compiled = _.template template
+			_.templateSettings = saveSettings
 			output = compiled person
 			$('#people-listing-ul').append(output)
 		)
